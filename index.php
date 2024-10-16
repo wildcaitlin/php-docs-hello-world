@@ -6,6 +6,19 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 header('Content-Type: application/json');
 
-$data = array("key1" => "value1", "key2" => "value2");
-echo json_encode($data);
+$sql = "SELECT * FROM updates";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data for each row
+    while ($row = $result->fetch_assoc()) {
+        echo "Type: " . $row["type"] . ", Name: " . $row["name"] . ", Text: " . $row["text"] . ", Date: " . $row["date"] . "\n";
+    }
+} else {
+    echo "No results found.";
+}
+
+$conn->close();
+
+
 ?>
